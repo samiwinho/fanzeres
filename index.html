@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Programa Mensal</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,900&display=swap" rel="stylesheet">
+</head>
+<style>
+
+    * {
+        -webkit-font-smoothing: antialiased!important;
+        font-smoothing: antialiased!important;
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: #5b3c88; 
+        color: white;
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    h1 {
+        text-align: center;
+        padding: 0px;
+    }
+
+    h2 {
+        text-align: center;
+        padding-bottom: 20px;
+        font-style: italic;
+        padding-top: 30px;
+        margin-bottom: 10vh;
+        font-weight: lighter;
+    }
+
+    h3 {
+        padding: 1rem;
+        color: black;
+    }
+
+    .flex1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    i {
+        color: #5b3c88;
+    }
+
+    span {
+        color: #5b3c88;
+        margin-left: -7px;
+    }
+
+    .caixa {
+        background: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        padding: 16px 32px;
+        border-radius: 16px;
+        -webkit-box-shadow:0px 0px 100px 20px rgba(35,39,46,0.5);
+        -moz-box-shadow: 0px 0px 100px 20px rgba(35,39,46,0.5);
+        box-shadow: 0px 0px 100px 20px rgba(35,39,46,0.5);
+        margin: 2rem;
+        }
+
+</style>
+
+<body>
+    
+    <h1>Programação da Semana</h1>
+    <h2 id="datahoje"></h2>
+    
+    <div class="caixa">
+    <div class="flex1">
+        <i class="fa-solid fa-computer"></i>
+        <h3>Vídeo:</h3>
+        <h3 class="semanaInfo" style="font-weight: lighter; padding-left: 1rem;"></h3>
+    </div>
+
+    <div class="flex1">
+        <i class="fa-solid fa-music"></i>
+        <h3>Som:</h3>
+        <h3 class="semanaInfo" style="font-weight: lighter; padding-left: 1rem;"></h3>
+    </div>
+
+    <div class="flex1">
+        <span class="material-symbols-outlined" style="font-weight: regular;">podium</span>
+        <h3>Palco:</h3>
+        <h3 class="semanaInfo" style="font-weight: lighter; padding-left: 1rem;"></h3>
+    </div>
+
+    <div class="flex1">
+        <i class="fa-solid fa-microphone"></i>
+        <h3>Micros:</h3>
+        <h3 class="semanaInfo" style="font-weight: lighter; padding-left: 1rem;"></h3>
+        <div style="font-weight: lighter; border-left: black 1px solid; width: 1px; height: 50%;"></div>
+        <h3 class="semanaInfo" style="font-weight: lighter; padding-left: 1rem;"></h3>
+    </div>
+
+    <div class="flex1" style="border-top: #c3c3c3 1px solid; width: 100%; justify-content: start!important;">
+        <i class="fa-solid fa-video"></i>
+        <h3>Transmissão Broadcasting:</h3>
+        <h3 class="semanaInfo" style="font-weight: lighter; padding-left: 1rem;"></h3>
+    </div> 
+
+
+    </div>
+
+    <script>
+        var programaMensal = {
+            "semana1": [
+                "António Manuel",
+                "Fernando Silva",
+                "Manuel Ribeiro",
+                "Sérgio Loureiro",
+                "Joaquim Veloso",
+                "",
+            ],
+            "semana2":  [
+                "António Manuel",
+                "Celso Vilacova",
+                "Sérgio Loureiro",
+                "Joaquim Veloso",
+                "Manuel Ribeiro",
+                "Josué Ribeiro",
+            ],
+            "semana3":  [
+                "Celso Vilacova",
+                "Sérgio Loureiro",
+                "Joaquim Veloso",
+                "Sérgio Pereira",
+                "José Augusto",
+                "",
+            ],
+            "semana4":  [
+                "Sérgio Loureiro",
+                "Fernando Silva",
+                "Manuel Ribeiro",
+                "Sérgio Pereira",
+                "António Manuel",
+                "",
+            ],
+            "semana5":  [
+                "Samuel Silva",
+                "António Manuel",
+                "Manuel Ribeiro",
+                "Joaquim Veloso",
+                "Sérgio Pereira",
+                "",
+            ],
+        };
+
+        // Determine a semana em vigor (pode ser baseado na data atual)
+        var dataAtual = new Date();
+        var semanaEmVigor = 'semana' + (Math.ceil(dataAtual.getDate() / 7));
+
+        // Formatar a data em português
+        var dataFormatada = dataAtual.toLocaleDateString('pt-PT', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+        // Exibir a data na página
+        document.getElementById('datahoje').textContent = dataFormatada;
+
+        // Exiba as informações da semana em vigor
+        if (programaMensal[semanaEmVigor]) {
+            var semanaInfoDivs = document.querySelectorAll('.semanaInfo');
+
+            for (var i = 0; i < programaMensal[semanaEmVigor].length; i++) {
+                semanaInfoDivs[i].textContent = programaMensal[semanaEmVigor][i];
+            }
+
+            // Verifique se há texto para Transmissão Broadcasting e mostre a div apenas se houver texto
+            var transmissaoBroadcastingDiv = document.querySelector('.flex1[style="border-top: #c3c3c3 1px solid; width: 100%; justify-content: start!important;"]');
+            var textoTransmissaoBroadcasting = programaMensal[semanaEmVigor][programaMensal[semanaEmVigor].length - 1];
+            if (textoTransmissaoBroadcasting) {
+                transmissaoBroadcastingDiv.style.display = 'flex';
+            } else {
+                transmissaoBroadcastingDiv.style.display = 'none';
+            }
+
+        } else {
+            document.querySelectorAll('.semanaInfo').textContent = "Sem informações para esta semana.";
+        }
+    </script>
+</body>
+</html>
