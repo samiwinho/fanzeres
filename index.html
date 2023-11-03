@@ -133,79 +133,46 @@
     </div>
 
     <script>
-        var programaMensal = {
-            "semana1": [
-                "António Manuel",
-                "Fernando Silva",
-                "Manuel Ribeiro",
-                "Sérgio Loureiro",
-                "Joaquim Veloso",
-                "",
-            ],
-            "semana2":  [
-                "António Manuel",
-                "Celso Vilacova",
-                "Sérgio Loureiro",
-                "Joaquim Veloso",
-                "Manuel Ribeiro",
-                "Josué Ribeiro",
-            ],
-            "semana3":  [
-                "Celso Vilacova",
-                "Sérgio Loureiro",
-                "Joaquim Veloso",
-                "Sérgio Pereira",
-                "José Augusto",
-                "",
-            ],
-            "semana4":  [
-                "Sérgio Loureiro",
-                "Fernando Silva",
-                "Manuel Ribeiro",
-                "Sérgio Pereira",
-                "António Manuel",
-                "",
-            ],
-            "semana5":  [
-                "Samuel Silva",
-                "António Manuel",
-                "Manuel Ribeiro",
-                "Joaquim Veloso",
-                "Sérgio Pereira",
-                "",
-            ],
-        };
+        // Carregue os dados do programa a partir do arquivo JSON
+        fetch('https://samiwinho.github.io/dados-programacao/dados-programacao.json')
+        .then(response => response.json())
+        .then(programaData => {
 
-        // Determine a semana em vigor (pode ser baseado na data atual)
-        var dataAtual = new Date();
-        var semanaEmVigor = 'semana' + (Math.ceil(dataAtual.getDate() / 7));
+            // Determine a semana em vigor (pode ser baseado na data atual)
+            var dataAtual = new Date();
+            var semanaEmVigor = 'semana' + (Math.ceil(dataAtual.getDate() / 7));
 
-        // Formatar a data em português
-        var dataFormatada = dataAtual.toLocaleDateString('pt-PT', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            // Formatar a data em português
+            var dataFormatada = dataAtual.toLocaleDateString('pt-PT', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
-        // Exibir a data na página
-        document.getElementById('datahoje').textContent = dataFormatada;
+            // Exibir a data na página
+            document.getElementById('datahoje').textContent = dataFormatada;
 
-        // Exiba as informações da semana em vigor
-        if (programaMensal[semanaEmVigor]) {
-            var semanaInfoDivs = document.querySelectorAll('.semanaInfo');
+            // Exiba as informações da semana em vigor
+            if (programaData[semanaEmVigor]) {
+                var semanaInfoDivs = document.querySelectorAll('.semanaInfo');
 
-            for (var i = 0; i < programaMensal[semanaEmVigor].length; i++) {
-                semanaInfoDivs[i].textContent = programaMensal[semanaEmVigor][i];
-            }
+                for (var i = 0; i < programaData[semanaEmVigor].length; i++) {
+                    semanaInfoDivs[i].textContent = programaData[semanaEmVigor][i];
+                }
 
-            // Verifique se há texto para Transmissão Broadcasting e mostre a div apenas se houver texto
-            var transmissaoBroadcastingDiv = document.querySelector('.flex1[style="border-top: #c3c3c3 1px solid; width: 100%; justify-content: start!important;"]');
-            var textoTransmissaoBroadcasting = programaMensal[semanaEmVigor][programaMensal[semanaEmVigor].length - 1];
-            if (textoTransmissaoBroadcasting) {
-                transmissaoBroadcastingDiv.style.display = 'flex';
-            } else {
-                transmissaoBroadcastingDiv.style.display = 'none';
-            }
+                // Verifique se há texto para Transmissão Broadcasting e mostre a div apenas se houver texto
+                var transmissaoBroadcastingDiv = document.querySelector('.flex1[style="border-top: #c3c3c3 1px solid; width: 100%; justify-content: start!important;"]');
+                var textoTransmissaoBroadcasting = programaData[semanaEmVigor][programaData[semanaEmVigor].length - 1];
+                if (textoTransmissaoBroadcasting) {
+                    transmissaoBroadcastingDiv.style.display = 'flex';
+                } else {
+                    transmissaoBroadcastingDiv.style.display = 'none';
+                }
+                } else {
+                document.querySelectorAll('.semanaInfo').textContent = "Sem informações para esta semana.";
+                }
+        })
+        .catch(error => {
+            console.error("Erro ao carregar os dados do programa: " + error);
+        });
 
-        } else {
-            document.querySelectorAll('.semanaInfo').textContent = "Sem informações para esta semana.";
-        }
     </script>
+
 </body>
 </html>
