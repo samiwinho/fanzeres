@@ -133,20 +133,36 @@
     </div>
 
     <script>
+
+        Date.prototype.getWeekNumber = function () {
+        var d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
+        var dayNum = d.getUTCDay() || 7;
+        d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+        var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+        return Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+        };
+
+        var dataAtual = new Date();
+        var semanaEmVigor = 'semana' + dataAtual.getWeekNumber();
+
+
+
+        // Determine a semana em vigor (pode ser baseado na data atual)
+        //var dataAtual = new Date();
+        //var semanaEmVigor = 'semana' + (Math.ceil(dataAtual.getDate() / 7));
+
+        // Formatar a data em português
+            var dataFormatada = dataAtual.toLocaleDateString('pt-PT', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+        // Exibir a data na página
+            document.getElementById('datahoje').textContent = dataFormatada;
+
+
+
         // Carregue os dados do programa a partir do arquivo JSON
         fetch('https://samiwinho.github.io/dados-programacao/dados-programacao.json')
         .then(response => response.json())
         .then(programaData => {
-
-            // Determine a semana em vigor (pode ser baseado na data atual)
-            var dataAtual = new Date();
-            var semanaEmVigor = 'semana' + (Math.ceil(dataAtual.getDate() / 7));
-
-            // Formatar a data em português
-            var dataFormatada = dataAtual.toLocaleDateString('pt-PT', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-
-            // Exibir a data na página
-            document.getElementById('datahoje').textContent = dataFormatada;
 
             // Exiba as informações da semana em vigor
             if (programaData[semanaEmVigor]) {
