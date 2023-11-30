@@ -103,6 +103,11 @@
     
     <h1>Programação da Semana</h1>
     <h2 id="datahoje"></h2>
+    <div style="display: flex; justify-content: center; gap: 5%;">
+        <span class="material-symbols-outlined" onclick="funcaoAnterior()" style="background-color: white; color: black; cursor: pointer; padding: 20px; border-radius: 50%; box-shadow: 0px 0px 100px 20px rgba(35,39,46,0.5);">arrow_circle_left</span>
+        <span class="material-symbols-outlined" onclick="funcaoAtual()" style="background-color: white; color: black; cursor: pointer; padding: 20px; border-radius: 50%; box-shadow: 0px 0px 100px 20px rgba(35,39,46,0.5);">home</span>
+        <span class="material-symbols-outlined" onclick="funcaoSeguinte()" style="background-color: white; color: black; cursor: pointer; padding: 20px; border-radius: 50%; box-shadow: 0px 0px 100px 20px rgba(35,39,46,0.5);">arrow_circle_right</span>
+    </div>
     
     <div class="caixa">
     <div class="flex1">
@@ -162,15 +167,40 @@
         // Formatar a data em português
             var dataFormatada = dataAtual.toLocaleDateString('pt-PT', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
-        // Exibir a data na página
+            function funcaoAtual() {
+                semanaEmVigor = 'semana' + dataAtual.getWeekNumber();
+                atualizarPrograma();
+            }
+
+            function funcaoSeguinte() {
+                var numeroSemana = parseInt(semanaEmVigor.substring(6));
+                semanaEmVigor = 'semana' + (numeroSemana + 1);
+                atualizarPrograma();
+            }
+
+            function funcaoAnterior() {
+                var numeroSemana = parseInt(semanaEmVigor.substring(6));
+                semanaEmVigor = 'semana' + (numeroSemana - 1);
+                atualizarPrograma();
+            }
+
+
+            // Exibir a data na página
             document.getElementById('datahoje').textContent = dataFormatada;
 
 
 
-        // Carregue os dados do programa a partir do arquivo JSON
-        fetch('https://samiwinho.github.io/dados-programacao/dados-programacao.json')
+        // ... (your existing code)
+
+function atualizarPrograma() {
+    // Carregue os dados do programa a partir do arquivo JSON
+    fetch('https://samiwinho.github.io/dados-programacao/dados-programacao.json')
         .then(response => response.json())
         .then(programaData => {
+
+
+            // Exibir a data na página
+            document.getElementById('datahoje').textContent = dataFormatada;
 
             // Exiba as informações da semana em vigor
             if (programaData[semanaEmVigor]) {
@@ -188,13 +218,21 @@
                 } else {
                     transmissaoBroadcastingDiv.style.display = 'none';
                 }
-                } else {
+            } else {
                 document.querySelectorAll('.semanaInfo').textContent = "Sem informações para esta semana.";
-                }
+            }
         })
+
         .catch(error => {
             console.error("Erro ao carregar os dados do programa: " + error);
         });
+}
+
+// Call the function to update the program initially
+atualizarPrograma();
+</script>
+
+        
 
     </script>
 
